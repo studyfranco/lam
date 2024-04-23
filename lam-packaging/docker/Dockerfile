@@ -37,8 +37,13 @@ ENV \
     DEBUG=''
 
 RUN apt-get update && \
-    apt-get upgrade -y
+    apt-get upgrade -y \
+    && apt install curl
 
+RUN curl -sSLf \
+    -o /usr/local/bin/install-php-extensions \
+    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+    chmod +x /usr/local/bin/install-php-extensions
 # install locales
 RUN apt-get install -y locales
 RUN sed -i 's/^# *\(ca_ES.UTF-8\)/\1/' /etc/locale.gen && \
