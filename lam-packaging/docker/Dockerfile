@@ -81,7 +81,7 @@ RUN apt update \
     && docker-php-ext-install phpseclib/phpseclib@3.0 \
     && docker-php-ext-install phpseclib/phpseclib@2.0 \
     && docker-php-ext-install Seldaek/monolog@main \
-    && docker-php-ext-install voku/portable-ascii@master
+    && docker-php-ext-install voku/portable-ascii@master \
     && PHPMailer/PHPMailer@master
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \ libphp-phpmailer \
 
