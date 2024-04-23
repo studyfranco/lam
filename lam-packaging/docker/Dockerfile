@@ -62,7 +62,8 @@ RUN sed -i 's/^# *\(ca_ES.UTF-8\)/\1/' /etc/locale.gen && \
         sed -i 's/^# *\(zh_CN.UTF-8\)/\1/' /etc/locale.gen && \
         locale-gen
 
-RUN apt-get install --no-install-recommends -y \
+RUN apt update \
+        && apt-get install --no-install-recommends -y \
         ca-certificates \
         dumb-init \
         fonts-dejavu \
@@ -79,8 +80,8 @@ RUN apt-get install --no-install-recommends -y \
         gettext \
         libjs-jquery-jstree \
         libphp-phpmailer \
-    && \
-    rm -rf /var/cache/apt /var/lib/apt/lists/* \
+    && apt clean \
+    && rm -rf /var/cache/apt /var/lib/apt/lists/* \
     && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \
 
