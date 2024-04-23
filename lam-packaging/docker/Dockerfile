@@ -75,15 +75,15 @@ RUN apt update \
         libldap-common \
         gettext \
         libjs-jquery-jstree \
-        libphp-phpmailer \
     && apt clean \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
-    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp \
+    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp mailparse \
     && docker-php-ext-install phpseclib/phpseclib@3.0 \
     && docker-php-ext-install phpseclib/phpseclib@2.0 \
     && docker-php-ext-install Seldaek/monolog@main \
     && docker-php-ext-install voku/portable-ascii@master
-# php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \
+    && PHPMailer/PHPMailer@master
+# php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \ libphp-phpmailer \
 
 # install letsencrypt certificates
 RUN wget https://letsencrypt.org/certs/isrgrootx1.pem \
