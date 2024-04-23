@@ -44,6 +44,7 @@ RUN curl -sSLf \
     -o /usr/local/bin/install-php-extensions \
     https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions
+
 # install locales
 RUN apt-get install -y locales
 RUN sed -i 's/^# *\(ca_ES.UTF-8\)/\1/' /etc/locale.gen && \
@@ -88,7 +89,8 @@ RUN apt update \
     && docker-php-ext-install Seldaek/monolog@main \
     && docker-php-ext-install voku/portable-ascii@master \
     && docker-php-ext-install PHPMailer/PHPMailer@master \
-    && docker-php-ext-install Imagick/imagick@master
+    && docker-php-ext-install Imagick/imagick@master \
+    && docker-php-ext-install php/pecl-mail-mailparse@master
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \ libphp-phpmailer \
 
 # install letsencrypt certificates
