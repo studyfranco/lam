@@ -77,12 +77,13 @@ RUN apt update \
         libjs-jquery-jstree \
     && apt clean \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
-    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp mailparse \
+    && docker-php-ext-install gd pdo_mysql mysqli ldap zip imap gmp mailparse \
     && docker-php-ext-install phpseclib/phpseclib@3.0 \
     && docker-php-ext-install phpseclib/phpseclib@2.0 \
     && docker-php-ext-install Seldaek/monolog@main \
     && docker-php-ext-install voku/portable-ascii@master \
-    && PHPMailer/PHPMailer@master
+    && docker-php-ext-install PHPMailer/PHPMailer@master \
+    && docker-php-ext-install Imagick/imagick@master
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \ libphp-phpmailer \
 
 # install letsencrypt certificates
