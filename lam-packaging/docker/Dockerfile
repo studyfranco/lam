@@ -77,6 +77,8 @@ RUN apt update \
         libfreetype-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
+        libldap-common \
+        libldap-2.5-0 \
         wget \
         libldap-common \
         gettext \
