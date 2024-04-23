@@ -114,7 +114,7 @@ RUN wget https://github.com/LDAPAccountManager/lam/releases/download/${LAM_RELEA
 # remove link to manual as contents are removed on Docker instances
 RUN rm /usr/share/ldap-account-manager/docs
 
-COPY start.sh /usr/local/bin/start.sh
+COPY ./lam-packaging/docker/start.sh /usr/local/bin/start.sh
 
 WORKDIR /var/lib/ldap-account-manager/config
 
