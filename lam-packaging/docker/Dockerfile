@@ -71,10 +71,6 @@ RUN apt update \
         libfreetype-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        php-monolog \
-        php-phpseclib \
-        php-phpseclib3 \
-        php-voku-portable-ascii \
         wget \
         libldap-common \
         gettext \
@@ -83,6 +79,10 @@ RUN apt update \
     && apt clean \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
     && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp
+    && docker-php-ext-install phpseclib/phpseclib@3.0
+    && docker-php-ext-install phpseclib/phpseclib@2.0
+    && docker-php-ext-install Seldaek/monolog@main
+    && docker-php-ext-install voku/portable-ascii@master
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \
 
 # install letsencrypt certificates
