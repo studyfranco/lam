@@ -83,7 +83,7 @@ RUN apt update \
         libjs-jquery-jstree \
     && apt clean \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
-    && docker-php-ext-install gd pdo_mysql mysqli ldap zip imap gmp mailparse \
+    && docker-php-ext-install gd pdo_mysql mysqli ldap zip imap gmp \
     && docker-php-ext-install phpseclib/phpseclib@3.0 \
     && docker-php-ext-install phpseclib/phpseclib@2.0 \
     && docker-php-ext-install Seldaek/monolog@main \
