@@ -78,10 +78,10 @@ RUN apt update \
         libphp-phpmailer \
     && apt clean \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
-    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp
-    && docker-php-ext-install phpseclib/phpseclib@3.0
-    && docker-php-ext-install phpseclib/phpseclib@2.0
-    && docker-php-ext-install Seldaek/monolog@main
+    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp \
+    && docker-php-ext-install phpseclib/phpseclib@3.0 \
+    && docker-php-ext-install phpseclib/phpseclib@2.0 \
+    && docker-php-ext-install Seldaek/monolog@main \
     && docker-php-ext-install voku/portable-ascii@master
 # php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \
 
