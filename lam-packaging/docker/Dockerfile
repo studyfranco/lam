@@ -26,7 +26,7 @@
 #  See possible environment variables here: https://github.com/LDAPAccountManager/lam/blob/develop/lam-packaging/docker/.env
 #
 
-FROM debian:bookworm-slim
+FROM php:8.2-fpm
 LABEL maintainer="Roland Gruber <post@rolandgruber.de>"
 
 ARG LAM_RELEASE=8.7
@@ -63,35 +63,26 @@ RUN sed -i 's/^# *\(ca_ES.UTF-8\)/\1/' /etc/locale.gen && \
         locale-gen
 
 RUN apt-get install --no-install-recommends -y \
-        apache2 \
         ca-certificates \
         dumb-init \
         fonts-dejavu \
-        libapache2-mod-php \
-        php \
-        php-curl \
-        php-gd \
-        php-imagick \
-        php-ldap \
+        zip \
+        libfreetype-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
         php-monolog \
         php-phpseclib \
-        php-xml \
-        php-zip \
-        php-imap \
-        php-gmp \
-        php-mysql \
-        php-sqlite3 \
-        php-mbstring \
+        php-phpseclib3 \
+        php-voku-portable-ascii \
         wget \
         libldap-common \
         gettext \
         libjs-jquery-jstree \
-        php-phpseclib3 \
-        php-voku-portable-ascii \
         libphp-phpmailer \
     && \
-    rm /etc/apache2/sites-enabled/*default* && \
-    rm -rf /var/cache/apt /var/lib/apt/lists/*
+    rm -rf /var/cache/apt /var/lib/apt/lists/* \
+    && docker-php-ext-install gd pdo_mysql mysqli ldap imagick zip imap gmp
+# php-curl \ php-xml \ php-mysql \ php-sqlite3 \ php-mbstring \
 
 # install letsencrypt certificates
 RUN wget https://letsencrypt.org/certs/isrgrootx1.pem \
@@ -122,21 +113,6 @@ RUN wget https://github.com/LDAPAccountManager/lam/releases/download/${LAM_RELEA
 
 # remove link to manual as contents are removed on Docker instances
 RUN rm /usr/share/ldap-account-manager/docs
-
-# redirect Apache logging
-RUN sed -e 's,^ErrorLog.*,ErrorLog "|/bin/cat",' -i /etc/apache2/apache2.conf
-# because there is no logging set in the lam vhost logging goes to other_vhost_access.log
-RUN ln -sf /dev/stdout /var/log/apache2/other_vhosts_access.log
-
-RUN a2enmod ssl
-
-# add redirect for /
-RUN a2enmod rewrite
-RUN echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/lam.conf \
- && echo "RewriteEngine on" >> /etc/apache2/sites-available/lam.conf \
- && echo "RewriteRule   ^/$  /lam/ [R,L]" >> /etc/apache2/sites-available/lam.conf \
- && echo "</VirtualHost>" >> /etc/apache2/sites-available/lam.conf
-RUN ln -s /etc/apache2/sites-available/lam.conf /etc/apache2/sites-enabled/
 
 COPY start.sh /usr/local/bin/start.sh
 
